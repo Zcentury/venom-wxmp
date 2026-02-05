@@ -1,0 +1,79 @@
+<scroll-view class="page-scroll" scroll-y="true">
+  <view class="container">
+    <view class="page-bg"></view>
+  
+  <view class="main-card">
+
+    <view class="form-section">
+      <!-- AppID Input -->
+      <view class="input-group">
+        <view class="label-line">
+          <text class="label">目标 AppID</text>
+          <view class="badge required">必填</view>
+        </view>
+        <view class="input-container {{focus === 'wxid' ? 'focused' : ''}}">
+          <input class="input" 
+            placeholder="请输入对方小程序 AppID" 
+            placeholder-class="input-placeholder" 
+            bindinput="onWxidInput" 
+            bindfocus="onFocus" 
+            bindblur="onBlur" 
+            data-field="wxid"
+            value="{{wxid}}" />
+          <view class="input-icon" wx:if="{{wxid.length > 0}}">✓</view>
+        </view>
+      </view>
+
+      <!-- Path Input -->
+      <view class="input-group">
+        <view class="label-line">
+          <text class="label">页面路径 Path</text>
+          <view class="badge optional">选填</view>
+        </view>
+        <view class="input-container {{focus === 'path' ? 'focused' : ''}}">
+          <input class="input" 
+            placeholder="请输入页面路径 (如 pages/index/index)" 
+            placeholder-class="input-placeholder" 
+            bindinput="onPathInput" 
+            bindfocus="onFocus" 
+            bindblur="onBlur"
+            data-field="path"
+            value="{{path}}" />
+        </view>
+        <text class="helper-text">留空将默认跳转至对方首页</text>
+      </view>
+    </view>
+
+    <view class="action-section">
+      <button class="jump-btn" hover-class="jump-btn-hover" bindtap="jumpToMiniProgram">
+        <text>立即跳转</text>
+        <text class="btn-arrow">→</text>
+      </button>
+    </view>
+  </view>
+
+  <!-- WebSocket Control Card -->
+  <view class="ws-card">
+    <view class="card-header mini-header">
+      <text class="title mini-title">Venom 协同</text>
+      <view class="status-badge {{isConnected ? 'online' : 'offline'}}">
+        {{isConnected ? '已连接' : '未连接'}}
+      </view>
+    </view>
+    
+    <view class="ws-input-row">
+      <input class="input ws-input" 
+        placeholder="192.168.1.1:8080" 
+        bindinput="onWsUrlInput" 
+        value="{{wsUrl}}"
+        disabled="{{isConnected}}" />
+      <button class="ws-btn {{isConnected ? 'disconnect' : 'connect'}}" 
+        hover-class="ws-btn-hover" 
+        bindtap="toggleConnection">
+        {{isConnected ? '断开' : '连接'}}
+      </button>
+    </view>
+  </view>
+  
+  </view>
+</scroll-view>
